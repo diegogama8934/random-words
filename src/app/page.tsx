@@ -1,20 +1,21 @@
 "use client";
-import { useState, useRef, useContext } from "react";
-import { WordContext } from "@/contexts/WordContext";
+import { useState, useRef } from "react";
 import { WordResponse } from "@/interfaces";
 import { useRouter } from "next/navigation";
+import { FavoriteWords } from "@/components/FavoriteWords";
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const { updateWord } = useContext(WordContext);
   const [favoriteWords, setFavoriteWords] = useState<WordResponse[]>([]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (inputRef.current && inputRef.current.value == "") return;
+    router.push(`/${inputRef.current?.value}`);
+  }
 
-    const resBody = await fetch(`https://wordsapiv1.p.rapidapi.com/words/${inputRef.current?.value}`, {
+  async function handleLookForARandomWord() {
+    const resBody = await fetch("https://wordsapiv1.p.rapidapi.com/words/?random=true", {
       method: "GET",
       headers: {
         'x-rapidapi-key': `${process.env.NEXT_PUBLIC_X_RAPID_API_KEY}`,
@@ -22,10 +23,9 @@ export default function Home() {
       }
     })
       .then(res => res.json())
-      .catch(err => console.error(err));
+      .catch(err => console.log(err))
 
-    updateWord(resBody);
-    router.push(`/${inputRef.current?.value}`);
+    router.push(`/${resBody.word}`);
   }
 
   return (
@@ -49,10 +49,8 @@ export default function Home() {
           />
         </form>
       </div>
-      <div className="mt-16 px-32 transition-all flex flex-col items-center gap-8">
-        <h2 className="w-fit font-bold text-3xl bg-gradient-to-r from-violet-600 to-indigo-600 gradient-text">Searched word</h2>
-        <span className="text-zinc-500">Some information of &quot;word&quot;</span>
-      </div>
+
+      {<FavoriteWords />}
     </div>
   );
 }
