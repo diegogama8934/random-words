@@ -1,4 +1,4 @@
-import { WordDescription } from "@/components/WordDescription";
+import { SingleWordPanel } from "@/components/SingleWordPanel";
 import { WordResponse } from "@/interfaces";
 import Link from "next/link";
 
@@ -23,7 +23,7 @@ async function getWordInformation(word: string): Promise<WordResponse | null> {
 }
 
 
-// When the word doesn´t exist. For example: "XD"
+// UI showed When the word doesn´t exist. For example: "XD"
 function NoWord({ word }: { word: string }) {
   return (
     <div className="flex flex-col gap-12 justify-center items-center h-screen">
@@ -46,6 +46,6 @@ function NoWord({ word }: { word: string }) {
 export default async function SingleWordPage({ params }: Props) {
   const wordInformation = await getWordInformation(params.word);
   return wordInformation ?
-    <WordDescription wordInformation={wordInformation}/> :
+    <SingleWordPanel wordInformation={wordInformation}/> :
     <NoWord word={params.word}/>
 }

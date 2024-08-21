@@ -1,4 +1,6 @@
-
+"use client";
+import { useContext } from "react";
+import { FavoriteWordsContext } from "@/contexts/FavoriteWordsContext";
 
 export function FavoriteWords() {
 

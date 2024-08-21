@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import { WordProvider } from "@/contexts/WordContext";
+import { FavoriteWordsProvider } from "@/contexts/FavoriteWordsContext";
 import "./globals.css";
 
 const roboto = Roboto({ weight: ["100", "300", "400", "500", "700", "900"], subsets: ["latin"] });
@@ -20,9 +20,9 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
       </head>
-      <WordProvider>
+      <FavoriteWordsProvider>
         <body className={roboto.className}>{children}</body>
-      </WordProvider>
+      </FavoriteWordsProvider>
     </html>
   );
 }
