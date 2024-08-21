@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState ,ReactNode } from "react";
+import { createContext, useState, useEffect, ReactNode } from "react";
 import { WordResponse } from "@/interfaces";
 
 interface FavoriteWordsProvider{
@@ -15,9 +15,20 @@ export const FavoriteWordsContext = createContext<FavoriteWordsProvider>({
 export function FavoriteWordsProvider({children}:{children:ReactNode}){
   const [favoriteWords, setFavoriteWords] = useState<WordResponse[] | null>(null);
 
+  useEffect(() => {
+    const favoriteWords = localStorage.getItem("favoriteWords");
+    if (!favoriteWords) return;
+    setFavoriteWords(JSON.parse(favoriteWords));
+  },[]);
+
+  useEffect(() => {
+    localStorage.setItem("favoriteWords", JSON.stringify(favoriteWords));
+  }, [favoriteWords]);
+
   function updateWord(wordInfo:WordResponse[]){
     setFavoriteWords(wordInfo);
   }
+
   return(
     <FavoriteWordsContext.Provider value={{favoriteWords, updateWord}}>
       {children}
