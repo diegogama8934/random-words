@@ -1,13 +1,24 @@
 "use client";
 import { useState } from "react";
 
+interface WordResponse {
+  word: string
+  results: {
+    definition:string
+    partOfSpeech: string
+    synonyms: string[]
+    typeOf:string[]
+  }[]
+  frequency: number
+}
 export default function Home() {
-  const [form, setForm] = useState<string>("");
+  const [wordToSearch, setWordToSearch] = useState<string>("");
+  const [savedWords, setSavedWords] = useState<WordResponse[]>([]);
 
   async function handleSubmit(e:React.FormEvent<HTMLFormElement>){
     e.preventDefault();
 
-    const resBody = await fetch(`https://wordsapiv1.p.rapidapi.com/words/${form}`, {
+    const resBody = await fetch(`https://wordsapiv1.p.rapidapi.com/words/${wordToSearch}`, {
       method:"GET",
       headers:{
         'x-rapidapi-key': `${process.env.NEXT_PUBLIC_X_RAPID_API_KEY}`,
@@ -16,8 +27,6 @@ export default function Home() {
     })
       .then(res => res.json())
       .catch(err => console.error(err));
-    
-    console.log(resBody);
   }
 
   return (
@@ -37,8 +46,8 @@ export default function Home() {
             type="text"
             className="p-2 w-full bg-transparent focus-visible:outline-none"
             placeholder="Search a word"
-            onChange={(e) => setForm(e.target.value)}
-            value={form}
+            onChange={(e) => setWordToSearch(e.target.value)}
+            value={wordToSearch}
           />
         </form>
       </div>
