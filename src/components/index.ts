@@ -1,6 +1,4 @@
-
-
-export { FavoriteWords } from "@/components/FavoriteWords";
+export { UserFavoriteWords } from "@/components/UserFavoriteWords";
 export { FormSearchWord } from "@/components/FormSearchWord";
-export { SingleWordPanel } from "@/components/SingleWordPanel";
+export { SingleWordPanel } from "@/components/WordContent";
 export { WordInformation } from "@/components/WordInformation";

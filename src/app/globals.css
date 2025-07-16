@@ -6,3 +6,39 @@
   -webkit-text-fill-color: transparent; 
   -webkit-background-clip: text; 
 }
+
+.hero {
+  @apply flex flex-col h-[300px] items-center justify-center relative bg-gradient-to-r from-violet-600 to-indigo-600;
+}
+
+.hero-title {
+  @apply text-5xl font-bold text-white bg-gradient-to-r from-amber-200 to-yellow-400 gradient-text;
+}
+
+.hero-description {
+  @apply text-white text-center text-xl mt-4;
+}
+
+.word-form {
+  @apply flex gap-2 items-center bg-gray-100 absolute -bottom-8 rounded-lg w-[600px] py-2 px-4 hover:scale-105 transition-all;
+}
+
+.word-form-input {
+  @apply p-2 w-full bg-transparent focus-visible:outline-none;
+}
+
+.no-word-container {
+  @apply flex flex-col gap-12 justify-center items-center h-screen;
+}
+
+.no-word-title {
+  @apply bg-gradient-to-r from-slate-900 to-slate-700 gradient-text text-4xl font-bold;
+}
+
+.no-word-emphasis {
+  @apply bg-gradient-to-r from-red-500 to-red-700 gradient-text;
+}
+
+.no-word-link-to-home {
+  @apply flex gap-4 py-4 px-8 bg-gradient-to-r from-red-500 to-red-700 rounded-md text-white hover:scale-105 transition-all;
+}
